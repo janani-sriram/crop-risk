@@ -1,0 +1,43 @@
+dataset,climate_condition,labeling,model,folds,mean_brier,sd_brier
+yield.csv (matched rows; no climate),without climate,global_bottom_20,Gradient boosting,101,0.1335453155368124,0.10375063602069917
+yield.csv (matched rows; no climate),without climate,global_bottom_20,"Original Bayesian tree (Beta(2,8))",101,0.13263190652239779,0.1001787026342986
+yield.csv (matched rows; no climate),without climate,global_bottom_20,RF crop-specific prior,101,0.13224031470369163,0.09414331976937648
+yield.csv (matched rows; no climate),without climate,global_bottom_20,"RF fixed Beta(2,8)",101,0.13677238104107475,0.10552891984436517
+yield.csv (matched rows; no climate),without climate,global_bottom_20,RF isotonic calibrated,101,0.14447702124875086,0.10974456831341685
+yield.csv (matched rows; no climate),without climate,global_bottom_20,RF raw-frequency,101,0.1374668465722038,0.10485859981644911
+yield.csv (matched rows; no climate),without climate,global_bottom_20,Single CART (raw k/N),101,0.1331864931693303,0.10077117360394154
+yield.csv (matched rows; no climate),without climate,within_crop_bottom_20,Gradient boosting,101,0.2017578107835408,0.1496767044248991
+yield.csv (matched rows; no climate),without climate,within_crop_bottom_20,"Original Bayesian tree (Beta(2,8))",101,0.2080013928564092,0.13967122539533353
+yield.csv (matched rows; no climate),without climate,within_crop_bottom_20,RF crop-specific prior,101,0.20438498726485088,0.1430092860096735
+yield.csv (matched rows; no climate),without climate,within_crop_bottom_20,"RF fixed Beta(2,8)",101,0.2029325409832239,0.13953170068100088
+yield.csv (matched rows; no climate),without climate,within_crop_bottom_20,RF isotonic calibrated,101,0.23465866184469528,0.13991114742161415
+yield.csv (matched rows; no climate),without climate,within_crop_bottom_20,RF raw-frequency,101,0.2044451843311907,0.13723038401839432
+yield.csv (matched rows; no climate),without climate,within_crop_bottom_20,Single CART (raw k/N),101,0.20847453016714482,0.13971800029979167
+yield.csv (no climate; full),without climate,global_bottom_20,Gradient boosting,212,0.12298708171219216,0.09050924847431148
+yield.csv (no climate; full),without climate,global_bottom_20,"Original Bayesian tree (Beta(2,8))",212,0.11129780153761738,0.07489284978108247
+yield.csv (no climate; full),without climate,global_bottom_20,RF crop-specific prior,212,0.11160218201353468,0.07611028444411541
+yield.csv (no climate; full),without climate,global_bottom_20,"RF fixed Beta(2,8)",212,0.12119888853245435,0.08860146286077618
+yield.csv (no climate; full),without climate,global_bottom_20,RF isotonic calibrated,212,0.12250859178289018,0.09000795697457856
+yield.csv (no climate; full),without climate,global_bottom_20,RF raw-frequency,212,0.12121023803360102,0.08816880783011462
+yield.csv (no climate; full),without climate,global_bottom_20,Single CART (raw k/N),212,0.11132389385848727,0.07488814554322425
+yield.csv (no climate; full),without climate,within_crop_bottom_20,Gradient boosting,212,0.14766445849439883,0.11985811706169866
+yield.csv (no climate; full),without climate,within_crop_bottom_20,"Original Bayesian tree (Beta(2,8))",212,0.14871825197673877,0.11958104439019943
+yield.csv (no climate; full),without climate,within_crop_bottom_20,RF crop-specific prior,212,0.14807745435045286,0.12262981787536692
+yield.csv (no climate; full),without climate,within_crop_bottom_20,"RF fixed Beta(2,8)",212,0.14753960014594564,0.12222876455148143
+yield.csv (no climate; full),without climate,within_crop_bottom_20,RF isotonic calibrated,212,0.15417645034576302,0.1291443517845836
+yield.csv (no climate; full),without climate,within_crop_bottom_20,RF raw-frequency,212,0.147868981574503,0.12225183242676871
+yield.csv (no climate; full),without climate,within_crop_bottom_20,Single CART (raw k/N),212,0.14887054882588135,0.11963460739500163
+yield_df.csv (with climate),with climate,global_bottom_20,Gradient boosting,101,0.1272105314996067,0.0861382712657477
+yield_df.csv (with climate),with climate,global_bottom_20,"Original Bayesian tree (Beta(2,8))",101,0.1229003078867261,0.07718660207069307
+yield_df.csv (with climate),with climate,global_bottom_20,RF crop-specific prior,101,0.09905968884430154,0.0642139294966313
+yield_df.csv (with climate),with climate,global_bottom_20,"RF fixed Beta(2,8)",101,0.11005116938306833,0.07323645994255577
+yield_df.csv (with climate),with climate,global_bottom_20,RF isotonic calibrated,101,0.11905910062812833,0.08660445804048386
+yield_df.csv (with climate),with climate,global_bottom_20,RF raw-frequency,101,0.1094935459831555,0.07175259805050925
+yield_df.csv (with climate),with climate,global_bottom_20,Single CART (raw k/N),101,0.12342332878153266,0.07760798574454632
+yield_df.csv (with climate),with climate,within_crop_bottom_20,Gradient boosting,101,0.16671505133181422,0.10465946036980338
+yield_df.csv (with climate),with climate,within_crop_bottom_20,"Original Bayesian tree (Beta(2,8))",101,0.16772247606317228,0.1089459855029835
+yield_df.csv (with climate),with climate,within_crop_bottom_20,RF crop-specific prior,101,0.1648152023489298,0.10748264688662476
+yield_df.csv (with climate),with climate,within_crop_bottom_20,"RF fixed Beta(2,8)",101,0.16298583965615826,0.10657000549267787
+yield_df.csv (with climate),with climate,within_crop_bottom_20,RF isotonic calibrated,101,0.1696477521020533,0.11992138494831725
+yield_df.csv (with climate),with climate,within_crop_bottom_20,RF raw-frequency,101,0.1641496968958289,0.10753497711877187
+yield_df.csv (with climate),with climate,within_crop_bottom_20,Single CART (raw k/N),101,0.1679654108144427,0.10919072001961103

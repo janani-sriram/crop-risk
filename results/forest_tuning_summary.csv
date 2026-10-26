@@ -1,0 +1,13 @@
+dataset,labeling,split,best_params,best_cv_brier
+yield.csv (no climate; full),global_bottom_20,random,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.09871841993323263
+yield.csv (no climate; full),global_bottom_20,temporal,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.10472329494996198
+yield.csv (no climate; full),within_crop_bottom_20,random,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.1368307684513205
+yield.csv (no climate; full),within_crop_bottom_20,temporal,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.1431524742539217
+yield_df.csv (with climate),global_bottom_20,random,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.045795817509534674
+yield_df.csv (with climate),global_bottom_20,temporal,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.045594551016602626
+yield_df.csv (with climate),within_crop_bottom_20,random,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.08439716372635642
+yield_df.csv (with climate),within_crop_bottom_20,temporal,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.08694771038490598
+yield.csv (matched rows; no climate),global_bottom_20,random,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.07658082132073914
+yield.csv (matched rows; no climate),global_bottom_20,temporal,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.07750395004352162
+yield.csv (matched rows; no climate),within_crop_bottom_20,random,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.11135281975267872
+yield.csv (matched rows; no climate),within_crop_bottom_20,temporal,"{""max_depth"": 12, ""min_samples_leaf"": 15, ""n_estimators"": 100}",0.11760845333191808

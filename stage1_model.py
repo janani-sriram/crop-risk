@@ -102,17 +102,17 @@ def main():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42, stratify=y)
 
-    cart = DecisionTreeClassifier(max_depth=4, min_samples_leaf=15, random_state=42)
-    cart.fit(X_train, y_train)
-    cart_probs = cart.predict_proba(X_test)[:, 1]
-
+    # One tree, two leaf estimators (same partition for both)
     bayes_tree = BayesianProbabilisticTree(max_depth=4, min_samples_leaf=15, alpha_0=2.0, beta_0=8.0)
     bayes_tree.fit(X_train, y_train)
-    bayes_probs = bayes_tree.predict_risk(X_test)
+
+    bayes_probs = bayes_tree.predict_risk(X_test)                           # Beta-Binomial posterior mean
+    cart_probs = bayes_tree.tree.predict_proba(np.asarray(X_test))[:, 1]    # raw k/N, same partition
 
     print("\n[Python] Evaluation Metrics:")
     print(f"CART Brier Score    : {brier_score_loss(y_test, cart_probs):.4f}")
     print(f"Bayesian Brier Score: {brier_score_loss(y_test, bayes_probs):.4f}")
+    print(f"CART ROC-AUC        : {roc_auc_score(y_test, cart_probs):.4f}")
     print(f"Bayesian ROC-AUC    : {roc_auc_score(y_test, bayes_probs):.4f}")
 
     results_df = X_test.copy()

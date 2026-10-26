@@ -1,0 +1,4 @@
+dataset,rows,year_min,year_max,climate_features
+yield.csv (no climate; full),56717,1961,2016,
+yield_df.csv (with climate),28242,1990,2013,"rainfall,temperature,pesticides"
+yield.csv (matched rows; no climate),28242,1990,2013,
