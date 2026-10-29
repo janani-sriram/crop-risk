@@ -365,7 +365,9 @@ def fit_split(dataset_name, df, X, encoders, categorical, numeric, labeling, y, 
         "forest": forest, "forest_counts": forest_leaf_stats(forest, Xfit, yfit, cfit),
         "isotonic": isotonic, "boosting": boosting,
         "failure_threshold_global": float(df["yield"].quantile(.2)),
-        "crop_failure_rates": pd.Series(ytrain).groupby(crops[train]).mean().to_dict(),
+        # Forests are fit on the fit subset; crop priors must use that same subset
+        # to reproduce forest_predict()'s training-time estimates.
+        "crop_failure_rates": pd.Series(yfit).groupby(cfit).mean().to_dict(),
         "training_coverage": training_coverage,
         "best_params": search.best_params_, "brier_predictions": preds,
         "tree_spread_test": spread,

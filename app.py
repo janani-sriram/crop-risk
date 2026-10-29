@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import altair as alt
+from prediction import feature_row, rf_probabilities, score_one
 
 ROOT = Path(".")
 RESULTS = ROOT / "results"
@@ -78,79 +79,6 @@ with st.sidebar:
     for feature, title in climate_labels.items():
         if feature in entry["numeric"]:
             scenario[feature] = st.number_input(title, value=0.0)
-
-
-def feature_row(source, config):
-    """Map canonical website/upload fields into the model's saved stage1 feature layout."""
-    values = {}
-    area = str(source.get("Area", ""))
-    item = str(source.get("Item", ""))
-    for category, value in (("Area", area), ("Item", item), ("Domain", source.get("Domain", ""))):
-        if category in config["encoders"]:
-            classes = config["encoders"][category]
-            if category == "Domain" and not str(value):
-                value = classes[0]
-            encoded = classes.index(str(value)) if str(value) in classes else -1
-            values[f"{category.lower()}_encoded"] = encoded
-    values["Year"] = float(source.get("Year", 2010))
-    for feature, aliases in {
-        "rainfall": ("rainfall", "average_rain_fall_mm_per_year"),
-        "pesticides": ("pesticides", "pesticides_tonnes"),
-        "temperature": ("temperature", "avg_temp"),
-    }.items():
-        if feature in config["numeric"]:
-            found = next((source[a] for a in aliases if a in source and pd.notna(source[a])), np.nan)
-            values[feature] = float(found) if pd.notna(found) else 0.0
-    return pd.DataFrame([[values.get(col, 0.0) for col in config["feature_names"]]],
-                        columns=config["feature_names"], dtype=float)
-
-
-def rf_probabilities(config, X, item, spread=False):
-    forest = config["forest"]
-    leaf_stats, crop_stats = config["forest_counts"]
-    raw, fixed, crop_prior, draws = [], [], [], []
-    rate = float(config["crop_failure_rates"].get(item, np.mean([v[0] / max(v[1], 1) for d in leaf_stats for v in d.values()])))
-    rng = np.random.default_rng(42)
-    X_array = X.to_numpy()
-    for j, tree in enumerate(forest.estimators_):
-        leaf = int(tree.apply(X_array)[0])
-        k, n = leaf_stats[j].get(leaf, [0, 0])
-        raw.append(k / n if n else rate)
-        fixed.append((k + 2) / (n + 10))
-        ck, cn = crop_stats[j].get(f"{leaf}\t{item}", [0, 0])
-        crop_prior.append((ck + rate * 10) / (cn + 10))
-        if spread:
-            draws.append(rng.beta(k + 2, n - k + 8, size=400))
-    probs = {"RF raw-frequency": float(np.mean(raw)), "RF fixed Beta(2,8)": float(np.mean(fixed)),
-             "RF crop-specific prior": float(np.mean(crop_prior))}
-    if spread:
-        return probs, np.quantile(np.mean(np.asarray(draws), axis=0), [.05, .95])
-    return probs, None
-
-
-def score_one(source, config, model_name):
-    X = feature_row(source, config)
-    item = str(source.get("Item", ""))
-    model = config["tree"]
-    if model_name == "Single CART (raw k/N)":
-        p = float(model.predict_proba(X)[0, 1])
-        return p, None, None
-    if model_name == "Original Bayesian tree (Beta(2,8))":
-        leaf = int(model.apply(X)[0]); k, n = config["tree_counts"].get(leaf, [0, 0])
-        p = (k + 2) / (n + 10)
-        return float(p), None, None
-    if model_name.startswith("RF"):
-        has_ensemble_spread = model_name != "RF isotonic calibrated"
-        probs, spread = rf_probabilities(config, X, item, spread=has_ensemble_spread)
-        if model_name == "RF isotonic calibrated":
-            p = float(config["isotonic"].predict([probs["RF fixed Beta(2,8)"]])[0])
-            return p, None, None
-        else:
-            p = probs[model_name]
-        return float(p), float(spread[0]), float(spread[1])
-    if model_name == "Gradient boosting":
-        return float(config["boosting"].predict_proba(X)[0, 1]), None, None
-    raise ValueError(f"Unknown model: {model_name}")
 
 
 scenario_input = {"Area": country, "Item": crop, "Year": year, **scenario}
